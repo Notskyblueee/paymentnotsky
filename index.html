@@ -3,151 +3,172 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Minecraft Payment</title>
+<title>Notskyblueee - Secure Payment</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
 
 <style>
-body {
-    margin: 0;
-    font-family: 'Segoe UI', sans-serif;
-    background: url("https://loud-maroon-fsljbtf76r.edgeone.app/jungle-lake.png") no-repeat center center fixed;
-    background-size: cover;
-    overflow-x: hidden;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
 }
 
-.overlay {
-    background: rgba(0,0,0,0.65);
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    position: relative;
+body{
+    height:100vh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    background: radial-gradient(circle at top left,#1a002b,#0f001a,#000000);
+    overflow:hidden;
 }
 
-#particles {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 0;
+/* Animated Neon Border */
+.card{
+    position:relative;
+    width:420px;
+    padding:40px;
+    border-radius:25px;
+    background:#111;
+    color:white;
+    text-align:center;
+    box-shadow:0 0 40px rgba(0,255,255,0.3);
+    overflow:hidden;
 }
 
-.card {
-    position: relative;
-    z-index: 1;
-    width: 100%;
-    max-width: 420px;
-    background: rgba(20,20,20,0.9);
-    border-radius: 18px;
-    padding: 25px;
-    text-align: center;
-    border: 2px solid #6bdcff;
-    box-shadow: 0 0 25px rgba(107,220,255,0.5);
-    backdrop-filter: blur(8px);
+.card::before{
+    content:"";
+    position:absolute;
+    inset:-3px;
+    border-radius:30px;
+    background:linear-gradient(45deg,#00f0ff,#8a2be2,#00f0ff);
+    background-size:300% 300%;
+    animation:neonBorder 6s linear infinite;
+    z-index:-1;
 }
 
-.logo {
-    width: 90px;
-    margin-bottom: 10px;
+@keyframes neonBorder{
+    0%{background-position:0% 50%;}
+    50%{background-position:100% 50%;}
+    100%{background-position:0% 50%;}
 }
 
-.title {
-    color: #6bdcff;
-    font-size: 26px;
-    font-weight: bold;
-    text-shadow: 0 0 10px #6bdcff;
+h1{
+    margin-bottom:8px;
+    font-size:26px;
+    color:#00f0ff;
 }
 
-.qr {
-    width: 100%;
-    max-width: 260px;
-    margin-top: 15px;
-    border-radius: 12px;
-    border: 3px solid #6bdcff;
-    box-shadow: 0 0 15px rgba(107,220,255,0.7);
+.subtitle{
+    font-size:14px;
+    margin-bottom:25px;
+    opacity:0.7;
 }
 
-.desc {
-    color: #ccc;
-    font-size: 14px;
-    margin-top: 15px;
+/* Payment Box */
+.payment-box{
+    background:#1c1c1c;
+    padding:20px;
+    border-radius:15px;
+    margin-bottom:20px;
+    border:1px solid #00f0ff33;
 }
 
-@media(max-width:500px){
-    .title{font-size:22px;}
+.input-group{
+    display:flex;
+    gap:10px;
+    margin-top:10px;
+}
+
+input{
+    flex:1;
+    padding:10px;
+    border-radius:8px;
+    border:none;
+    background:#000;
+    color:#00f0ff;
+    outline:none;
+}
+
+button{
+    padding:10px 15px;
+    border:none;
+    border-radius:8px;
+    background:#8a2be2;
+    color:white;
+    cursor:pointer;
+    transition:0.3s;
+}
+
+button:hover{
+    background:#00f0ff;
+    color:black;
+    box-shadow:0 0 15px #00f0ff;
+}
+
+.qr{
+    margin-top:20px;
+}
+
+.footer{
+    margin-top:15px;
+    font-size:14px;
+    opacity:0.8;
+}
+
+.note{
+    margin-top:8px;
+    font-size:13px;
+    opacity:0.6;
 }
 </style>
 </head>
 
 <body>
 
-<canvas id="particles"></canvas>
+<div class="card">
+    <h1>Notskyblueee</h1>
+    <div class="subtitle">Instant • Secure • Verified</div>
 
-<div class="overlay">
-    <div class="card">
-
-        <img 
-        src="https://sacred-magenta-j9fowrrtsg.edgeone.app/file_0000000083287206bbec747ffd27bb60.png"
-        class="logo"
-        >
-
-        <div class="title">Notskyblueee Payment Page</div>
-
-        <img 
-        src="https://managing-chocolate-fqyt3yuzfk.edgeone.app/qr.png"
-        class="qr"
-        >
-
-        <div class="desc">
-        Scan QR using UPI / Payment App
+    <div class="payment-box">
+        <strong>UPI Payment</strong>
+        <div class="input-group">
+            <input type="text" value="jamipragyan@fam" id="upi" readonly>
+            <button onclick="copyUPI()">Copy</button>
         </div>
 
+        <!-- Auto Generated QR -->
+        <div class="qr">
+            <img id="qrImage" width="180">
+        </div>
+    </div>
+
+    <div class="footer">
+        Discord: <strong style="color:#00f0ff;">jami_pragyan</strong>
+    </div>
+
+    <div class="note">
+        Send payment screenshot in my DM after payment
     </div>
 </div>
 
+<!-- Copy Sound -->
+<audio id="copySound" src="https://assets.mixkit.co/active_storage/sfx/2571/2571-preview.mp3"></audio>
+
 <script>
-const canvas = document.getElementById("particles");
-const ctx = canvas.getContext("2d");
+const upiID = "jamipragyan@fam";
+const qrImage = document.getElementById("qrImage");
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
+/* Generate UPI QR */
+qrImage.src = "https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=" + upiID;
 
-let particles = [];
-
-for(let i=0;i<60;i++){
-    particles.push({
-        x: Math.random()*canvas.width,
-        y: Math.random()*canvas.height,
-        size: Math.random()*4+2,
-        speedY: Math.random()*1+0.5
-    });
+/* Copy Function with Sound */
+function copyUPI(){
+    navigator.clipboard.writeText(upiID);
+    document.getElementById("copySound").play();
 }
-
-function animate(){
-    ctx.clearRect(0,0,canvas.width,canvas.height);
-
-    ctx.fillStyle = "rgba(107,220,255,0.8)";
-
-    particles.forEach(p=>{
-        ctx.fillRect(p.x,p.y,p.size,p.size);
-        p.y += p.speedY;
-
-        if(p.y > canvas.height){
-            p.y = 0;
-            p.x = Math.random()*canvas.width;
-        }
-    });
-
-    requestAnimationFrame(animate);
-}
-
-animate();
-
-window.addEventListener("resize",()=>{
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-});
 </script>
 
 </body>
 </html>
-
